@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Environment files
+.env
+*/.env
+
+# Database
+*.db
+*.db-journal
+prisma/dev.db
+
+# Build output
+dist/
+build/
+frontend/dist/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Prisma
+prisma/migrations/dev/

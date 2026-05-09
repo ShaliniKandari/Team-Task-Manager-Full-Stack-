@@ -1,0 +1,93 @@
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Zap } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
+
+export default function SignupPage() {
+  const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const { signup } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    if (form.password.length < 8) { setError('Password must be at least 8 characters'); return; }
+    setLoading(true);
+    try {
+      await signup(form.name, form.email, form.password);
+      navigate('/dashboard');
+    } catch (err) {
+      setError(err.response?.data?.error || 'Signup failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-12 h-12 bg-indigo-600 rounded-xl mb-4">
+            <Zap size={24} className="text-white" />
+          </div>
+          <h1 className="text-2xl font-bold text-gray-900">Create your account</h1>
+          <p className="text-gray-500 mt-1 text-sm">Start managing tasks with your team</p>
+        </div>
+
+        <div className="card p-6">
+          {error && (
+            <div className="mb-4 px-3 py-2 bg-red-50 border border-red-100 rounded-lg text-sm text-red-600">
+              {error}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Full name</label>
+              <input
+                type="text"
+                className="input"
+                placeholder="Jane Smith"
+                value={form.name}
+                onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <input
+                type="email"
+                className="input"
+                placeholder="you@example.com"
+                value={form.email}
+                onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+              <input
+                type="password"
+                className="input"
+                placeholder="Min 8 characters"
+                value={form.password}
+                onChange={e => setForm(f => ({ ...f, password: e.target.value }))}
+                required
+              />
+            </div>
+            <button type="submit" className="btn-primary w-full justify-center" disabled={loading}>
+              {loading ? 'Creating account…' : 'Create account'}
+            </button>
+          </form>
+        </div>
+
+        <p className="text-center mt-4 text-sm text-gray-500">
+          Already have an account?{' '}
+          <Link to="/login" className="text-indigo-600 font-medium hover:underline">Sign in</Link>
+        </p>
+      </div>
+    </div>
+  );
+}
