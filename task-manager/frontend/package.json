@@ -1,6 +1,5 @@
 {
   "name": "task-manager-frontend",
-  "type": "module",
   "version": "1.0.0",
   "scripts": {
     "dev": "vite",
