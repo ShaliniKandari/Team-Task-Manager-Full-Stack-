@@ -1,13 +1,15 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
+import dotenv from 'dotenv'
+dotenv.config()
 
-const authRoutes = require('./routes/auth');
-const projectRoutes = require('./routes/projects');
-const taskRoutes = require('./routes/tasks');
-const userRoutes = require('./routes/users');
+import express from 'express'
+import cors from 'cors'
+import helmet from 'helmet'
+import rateLimit from 'express-rate-limit'
+
+import authRoutes from './routes/auth.js'
+import projectRoutes from './routes/projects.js'
+import taskRoutes from './routes/tasks.js'
+import userRoutes from './routes/users.js'
 
 const app = express();
 
