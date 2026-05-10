@@ -1,7 +1,7 @@
-const jwt = require('jsonwebtoken');
-const prisma = require('../lib/prisma');
+import jwt from 'jsonwebtoken';
+import prisma from '../lib/prisma.js';
 
-const authenticate = async (req, res, next) => {
+export const authenticate = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader?.startsWith('Bearer ')) {
@@ -43,7 +43,7 @@ const requireProjectAdmin = async (req, res, next) => {
 };
 
 // Middleware: require user to be any member of the project
-const requireProjectMember = async (req, res, next) => {
+export const requireProjectMember = async (req, res, next) => {
   try {
     const projectId = req.params.projectId || req.body.projectId;
     if (!projectId) return res.status(400).json({ error: 'Project ID required' });
@@ -61,4 +61,4 @@ const requireProjectMember = async (req, res, next) => {
   }
 };
 
-module.exports = { authenticate, requireProjectAdmin, requireProjectMember };
+
