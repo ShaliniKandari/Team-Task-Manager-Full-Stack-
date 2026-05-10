@@ -1,7 +1,7 @@
 import express from 'express';
-const router = require('express').Router();
-import { signup, login, refresh, logout, me } = require('../controllers/auth');
-import { authenticate } = require('../middleware/auth');
+const router = express.Router();
+import { signup, login, refresh, logout, me } from '../controllers/authController.js';
+import { authenticate } from '../middleware/auth.js';
 
 router.post('/signup', signup);
 router.post('/login', login);
