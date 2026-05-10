@@ -1,6 +1,7 @@
+import express from 'express';
 const router = require('express').Router();
-const { signup, login, refresh, logout, me } = require('../controllers/auth');
-const { authenticate } = require('../middleware/auth');
+import { signup, login, refresh, logout, me } = require('../controllers/auth');
+import { authenticate } = require('../middleware/auth');
 
 router.post('/signup', signup);
 router.post('/login', login);
@@ -8,4 +9,4 @@ router.post('/refresh', refresh);
 router.post('/logout', logout);
 router.get('/me', authenticate, me);
 
-module.exports = router;
+export default router;
