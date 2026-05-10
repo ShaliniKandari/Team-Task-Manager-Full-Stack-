@@ -1,5 +1,4 @@
 {
-  // redploy trigger
   "name": "task-manager-backend",
   "type": "module",
   "version": "1.0.0",
